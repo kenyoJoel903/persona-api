@@ -11,7 +11,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[Swagger](http://localhost:3000/doc/swagger) url proyecto.
 
 ## Creación de proyecto
 ```bash
@@ -20,20 +20,19 @@ $ npm install --save aws-sdk
 $ npm install --save @nestjs/swagger swagger-ui-express --force
 $ npm i --save aws-lambda
 $ npm i --save aws-serverless-express
-$ npm install --save sequelize sequelize-typescript pg-hstore pg
-$ npm install --save-dev @types/sequelize
-
+$ npm install --save @nestjs/typeorm typeorm pg
 ## Installation
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+## Configuracion
 
 ```bash
-# development
-$ npm run start
+$ nest generate module core --no-spec
+$ nest generate module business --no-spec
+$ nest generate module journey --no-spec
 
 # watch mode
 $ npm run start:dev
