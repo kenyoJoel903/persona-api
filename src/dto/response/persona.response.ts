@@ -10,7 +10,7 @@ export class PersonaResponse {
         if(data) {
             this.codigo = data.codigo;
             this.nombres = data.nombres;
-            this.apellidoPaterno = data.nombres;
+            this.apellidoPaterno = data.apellidoPaterno;
             this.apellidoMaterno = data.apellidoMaterno;
         }
     }

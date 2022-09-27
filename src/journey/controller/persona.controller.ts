@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { PersonaRegistroRequest } from 'src/dto/request/Persona.registro.request';
+import { ApiResponse } from 'src/dto/response/api.response';
 import { PersonaResponse } from 'src/dto/response/persona.response';
 import { PersonaJoService } from '../service/persona.jo.service';
 
@@ -12,8 +13,14 @@ export class PersonaController {
     }
 
     @Post()
-    async register(@Body() request:PersonaRegistroRequest):Promise<PersonaResponse> {
+    async register(@Body() request:PersonaRegistroRequest):Promise<ApiResponse> {
         const operationId = Date.now();
         return this.personaJoService.register(request, operationId);
+    }
+
+    @Get()
+    async listar():Promise<ApiResponse> {
+        const operationId = Date.now();
+        return this.personaJoService.listar(operationId);
     }
 }
