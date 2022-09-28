@@ -2,9 +2,9 @@ import { env } from "process";
 
 //https://docs.nestjs.com/techniques/database
 export const ConexionPgDb = {
-    host: 'localhost',
+    host: 'mouse.db.elephantsql.com',
     port: 5432,
-    username: 'postgres',
-    password: '123456',
-    database: 'personadb'
+    username: 'hrzsdfle',
+    password: 'LcY7NsE_yLGFq2RVcf8f27ypcXhSVO1D',
+    database: 'hrzsdfle'
 };
