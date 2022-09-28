@@ -18,15 +18,12 @@ export class PersonaBsService {
         response.operationCode = operationId;
         response.error = true;
         try {
-            if(!request.nombre || !request.apellidoPaterno || !request.fechaNacimiento) {
+            if(!request.nombres || !request.apellidoPaterno || !request.fechaNacimiento) {
                 response.message = 'Ingresar nombres y appelidos'
             } else {
-                let persona:Persona = new Persona();
-                persona.nombres = request.nombre.toUpperCase();
-                persona.apellidoPaterno = request.apellidoPaterno.toUpperCase();
-                persona.apellidoMaterno = request.apellidoMaterno.toUpperCase();
-                persona.fechaNacimiento = request.fechaNacimiento;
+                let persona:Persona = new Persona(request);
                 persona.usuarioCrea = 'TEST';
+                
                 const responseCo:Persona = await this.personaCoService.register(persona, operationId);
                 if(!responseCo) {
                     response.message = 'No se puedo registrar';

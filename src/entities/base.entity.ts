@@ -16,4 +16,14 @@ export class EntityBase {
 
     @Column({length: 20, nullable: true})
     usuarioModifica:String;
+
+    constructor(data:any) {
+        if(data) {
+            this.estadoRegistro = data.estadoRegistro;
+            this.fechaCrea = data.fechaCrea;
+            this.fechaModifica = data.fechaModifica;
+            this.usuarioCrea = data.usuarioCrea;
+            this.usuarioModifica = data.usuarioModifica;
+        }
+    }
 }
