@@ -1,0 +1,35 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      - pip3 install awscli --upgrade --user
+      - pip3 install --upgrade aws-sam-cli
+      - sam --version
+
+  #pre_build:
+  #  commands:
+  #    - CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain tranzferme --domain-owner 720078739026 --query authorizationToken --output text`
+  #    - echo ${CODEARTIFACT_AUTH_TOKEN}
+  #    - npm config set registry=https://tranzferme-720078739026.d.codeartifact.us-east-1.amazonaws.com/npm/npm-store/
+  #    - npm config set //tranzferme-720078739026.d.codeartifact.us-east-1.amazonaws.com/npm/npm-store/:_authToken=${CODEARTIFACT_AUTH_TOKEN}
+  #    - npm config set //tranzferme-720078739026.d.codeartifact.us-east-1.amazonaws.com/npm/npm-store/:always-auth=true
+
+  build:
+    commands:
+      - npm install
+      - npm run build
+      - npm prune --production
+
+  post_build:
+    commands:
+      - mkdir deploy
+      - zip -r deploy/app.zip dist/ node_modules
+      - sam package --s3-bucket $PACKAGE_BUCKET --output-template-file packaged.yaml
+
+artifacts:
+  discard-paths: yes
+  files:
+    # List of local artifacts that will be passed down the pipeline
+    - packaged.yaml

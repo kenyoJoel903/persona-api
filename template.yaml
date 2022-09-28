@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: PersonasApi.
+Globals:
+  Api:
+    EndpointConfiguration: REGIONAL
+    BinaryMediaTypes:
+      - "*/*"
+
+Parameters:
+  Stage:
+    Type: String
+  DbUser:
+    Type: String
+  DbPassword:
+    Type: String
+  DbHost:
+    Type: String
+  Db:
+    Type: String
+  CaptchaKey:
+    Type: String
+  CognitoCustomerUserPool:
+    Type: String
+  CognitoCustomerClientId:
+    Type: String
+
+Resources:
+  PersonasApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref Stage
+
+  PersonasJourneyJs:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: PersonasJourneyJs
+      Handler: dist/lambda-entry-point.handler
+      Runtime: nodejs14.x
+      CodeUri: deploy/app.zip
+      MemorySize: 1512
+      Timeout: 60
+      Environment:
+        Variables:
+          tzProfile: !Sub '${Stage}'  
+
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: any
+            RestApiId: !Ref PersonasApi
+
+Outputs:
+  PersonasJourneyJsApi:
+    Description: URL for application
+    Value: !Sub 'https://${PersonasApi}.execute-api.${AWS::Region}.amazonaws.com/${Stage}/'
+    Export:
+      Name: PersonasJourneyJs
