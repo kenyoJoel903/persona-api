@@ -15,7 +15,7 @@ export class PersonaCoService {
     ){ }
 
     async register(persona:Persona, operationId: number):Promise<Persona> {
-        console.log('[BEGIN] register', {persona, operationId});
+        console.log('[BEGIN] register', {operationId});
         try {
             const fechaCrea = new Date();
             const estadoRegistro = 'A';

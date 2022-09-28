@@ -13,7 +13,7 @@ export class PersonaBsService {
     ){}
 
     async register(request:PersonaRegistroRequest, operationId:number):Promise<ApiBsResponse> {
-        console.log('[BEGIN] BS register', {request, operationId});
+        console.log('[BEGIN] BS register', {operationId});
         let response:ApiBsResponse = new ApiBsResponse();
         response.operationCode = operationId;
         response.error = true;
@@ -48,7 +48,6 @@ export class PersonaBsService {
         try {
             const responseCo: Array<Persona> = await this.personaCoService.list(operationId);
             response.error = false;
-            console.log(responseCo);
             if(responseCo) {
                 response.content = responseCo.map(p => {
                     return new PersonaResponse(p);
@@ -59,7 +58,7 @@ export class PersonaBsService {
         } catch (error) {
             response.message = 'Ocurrió un error inesperado';
         }
-        console.log('[END] BS register', { response, operationId});
+        console.log('[END] BS register', { operationId});
         return response;
     }
 

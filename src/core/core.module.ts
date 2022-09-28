@@ -19,7 +19,8 @@ import { PersonaCoService } from './service/persona.co.service';
             password: ConexionPgDb.password,
             database: ConexionPgDb.database,
             autoLoadEntities: true,
-            synchronize: true
+            synchronize: true,
+            logger: 'advanced-console'
         }),
         TypeOrmModule.forFeature([Persona, Direccion, Telefono])
     ],

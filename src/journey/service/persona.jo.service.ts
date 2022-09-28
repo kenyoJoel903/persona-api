@@ -13,6 +13,7 @@ export class PersonaJoService {
     }
 
     async register(request:PersonaRegistroRequest, operationId:number): Promise<ApiResponse> {
+        console.log('[BEGIN] JO register', {operationId});
         let response:ApiResponse = new ApiResponse();
         response.operationCode = operationId;
         const responseBs = await this.personaBsService.register(request, operationId);
@@ -23,10 +24,12 @@ export class PersonaJoService {
             response.message = 'OK';
             response.content = responseBs.content;
         }
+        console.log('[END] JO register', {operationId});
         return response;
     }
 
     async listar(operationId:number): Promise<ApiResponse> {
+        console.log('[BEGIN] JO listar', {operationId});
         let response:ApiResponse = new ApiResponse();
         response.operationCode = operationId;
         const responseBs = await this.personaBsService.listar(operationId);
@@ -37,6 +40,7 @@ export class PersonaJoService {
             response.message = 'OK';
             response.content = responseBs.content;
         }
+        console.log('[END] JO listar', {operationId});
         return response;
     }
 
